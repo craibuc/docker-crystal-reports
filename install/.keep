@@ -1,0 +1,2 @@
+This folder just here so it will be created on the build server.
+You can place the CRRuntime_64bit_13_0_30.msi file here and it will not be downloaded each time when building the image.
