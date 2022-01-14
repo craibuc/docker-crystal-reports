@@ -1,11 +1,20 @@
-ENV MSI=./CRRuntime_64bit_13_0_30.msi
-
 FROM mcr.microsoft.com/windows:1809
 
-WORKDIR /install
+WORKDIR /app
+COPY . .
 
-COPY ./install .
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-RUN if (!(Test-Path "$env:MSI")) { Invoke-WebRequest "https://origin.softwaredownloads.sap.com/public/file/0020000000195602021" -O "$env:MSI" } \
-Start-Process -FilePath "$env:MSI" -ArgumentList '/quiet', '/NoRestart', '/L*V ./cr_redist.log' -Wait; \
-Remove-Item .\* -Exclude *.log;
+RUN Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+# install Crystal Reports run-time
+RUN .\Install-CrystalReports.ps1 -Verbose
+
+# install PsCrystal module from Github
+RUN .\Install-PsCrystal.ps1 -Verbose
+
+# import the module
+ENTRYPOINT ['import-module','PsCrystal']
+
+# start poweshell
+CMD ['powershell']
