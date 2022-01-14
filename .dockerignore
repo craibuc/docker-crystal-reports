@@ -1,0 +1,10 @@
+.dockerignore
+Dockerfile*
+
+.git
+.gitignore
+
+Psakefile.ps1
+README.md
+
+install
