@@ -6,13 +6,13 @@ A Docker project to create an image that contains the Crystal Reports runtime fo
 ### Create image
 
 ```powershell
-docker build --tag "crystal-reports:latest" .
+docker build --tag crystal-reports:latest .
 ```
 
 ### Run container and create an interactive, powershell session
 
 ```powershell
-docker run -it --rm "crystal-reports:latest" powershell
+docker run -it --rm crystal-reports:latest powershell
 ```
 
 ## References
